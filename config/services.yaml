@@ -1,0 +1,23 @@
+parameters:
+  env(COMMIT_HASH): ""
+  app.name: "%env(APP_NAME)%"
+  app.environment: "%env(APP_ENV)%"
+  app.identity_base_url: '%env(IDENTITY_BASE_URL)%'
+  app.vendor_piano_base_url: '%env(VENDOR_PIANO_BASE_URL)%'
+  app.product_map_environment: "%env(PRODUCT_MAP_ENVIRONMENT)%"
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    bind:
+      $appName: '%app.name%'
+      $environment: '%app.environment%'
+      $configLocation: '%kernel.project_dir%/config/services'
+
+    App\Service\Google\Factory\Authenticator:
+      arguments:
+        $googleCredentials: '%env(GOOGLE_API_SERVICE_ACCOUNT_CREDENTIALS)%'
+
+    Google\Client: ~
