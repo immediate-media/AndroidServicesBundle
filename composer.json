@@ -3,7 +3,7 @@
     "description": "Android-services-bundle allows you to easily integrate with Android services and call their API end point",
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "repositories": {
         "immediate/im-datadog": {
@@ -32,20 +32,9 @@
     },
     "require": {
         "php": "^8.1",
-        "ext-openssl": "*",
         "google/apiclient": "^2.10",
-        "firebase/php-jwt": "^6.11",
         "immediate/im-datadog": "^1.0",
-        "immediate/webhooks-common": "^5.0",
-        "symfony/config": "^6.4",
-        "symfony/framework-bundle": "^6.4",
-        "symfony/http-client": "^6.4",
-        "symfony/serializer": "^6.4",
-        "symfony/yaml": "^6.4",
-        "symfony/browser-kit": "^6.4",
-        "symfony/http-foundation": "^6.4",
-        "symfony/property-access": "^6.4",
-        "symfony/routing": "^6.4"
+        "immediate/webhooks-common": "^5.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.6",
