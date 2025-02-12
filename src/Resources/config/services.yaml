@@ -5,10 +5,5 @@ services:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-  IM\Fabric\Bundle\AndroidServicesBundle\Factory\Authenticator:
-    arguments:
-      $googleCredentials: '%env(GOOGLE_API_SERVICE_ACCOUNT_CREDENTIALS)%'
-
-  Google\Client: ~
   IM\Fabric\Bundle\AndroidServicesBundle\AndroidServicesApi: ~
   IM\Fabric\Bundle\AndroidServicesBundle\Factory\AndroidPublisherService: ~
