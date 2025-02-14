@@ -52,7 +52,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "IM\\Fabric\\Bundle\\AndroidServicesBundle\\Test\\": "tests/"
+            "IM\\Fabric\\Bundle\\AndroidServicesBundle\\Test\\": "tests/phpunit/"
         }
     },
     "scripts": {
