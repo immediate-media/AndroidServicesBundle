@@ -8,7 +8,7 @@ use Google\Exception;
 use Google\Service\AndroidPublisher;
 use JsonException;
 
-readonly class AndroidPublisherService
+class AndroidPublisherService
 {
     public function __construct(
         private Authenticator $clientFactory

@@ -14,11 +14,11 @@ use IM\Fabric\Bundle\WebhooksCommonBundle\Datadog;
 use IM\Fabric\Package\Datadog\Event;
 use Throwable;
 
-readonly class AndroidServicesApi
+class AndroidServicesApi
 {
     public function __construct(
         private AndroidPublisherService $serviceFactory,
-        private Datadog                 $datadog
+        private Datadog $datadog
     )
     {
     }

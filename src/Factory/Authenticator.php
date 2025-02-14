@@ -12,7 +12,7 @@ use JsonException;
  * Responsible for providing a Google API Client with the appropriate authentication credentials.
  * Constructor arguments configured via services.yaml
  */
-readonly class Authenticator
+class Authenticator
 {
     public function __construct(
         private string $googleCredentials,
