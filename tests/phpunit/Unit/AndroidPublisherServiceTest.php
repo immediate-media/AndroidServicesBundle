@@ -9,7 +9,6 @@ use Google\Service\AndroidPublisher\Resource\MonetizationSubscriptions;
 use Google\Service\AndroidPublisher\Resource\PurchasesSubscriptions;
 use Google\Service\AndroidPublisher\Resource\PurchasesSubscriptionsv2;
 use IM\Fabric\Bundle\AndroidServicesBundle\AndroidServicesApi;
-use IM\Fabric\Bundle\AndroidServicesBundle\Event\AndroidServiceEvent;
 use IM\Fabric\Bundle\AndroidServicesBundle\Exception\AndroidServiceException;
 use IM\Fabric\Bundle\AndroidServicesBundle\Factory\AndroidPublisherService;
 use IM\Fabric\Bundle\AndroidServicesBundle\Model\AndroidPublisherModel;
