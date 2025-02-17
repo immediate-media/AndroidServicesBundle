@@ -16,8 +16,8 @@ class AuthenticatorTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
-    private const string MOCK_SCOPE = 'https://www.mock.google.scope/some/service';
-    private const string MOCK_CREDENTIALS = '{
+    private const  MOCK_SCOPE = 'https://www.mock.google.scope/some/service';
+    private const  MOCK_CREDENTIALS = '{
         "type": "service_account",
         "project_id": "mock_project_id",
         "private_key_id": "mock_key_id",

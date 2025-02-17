@@ -9,14 +9,14 @@ use Google\Service\AndroidPublisher\Resource\MonetizationSubscriptions;
 use Google\Service\AndroidPublisher\Resource\PurchasesSubscriptions;
 use Google\Service\AndroidPublisher\Resource\PurchasesSubscriptionsv2;
 use IM\Fabric\Bundle\AndroidServicesBundle\AndroidServicesApi;
+use IM\Fabric\Bundle\AndroidServicesBundle\Event\AndroidServiceEvent;
+use IM\Fabric\Bundle\AndroidServicesBundle\Exception\AndroidServiceException;
 use IM\Fabric\Bundle\AndroidServicesBundle\Factory\AndroidPublisherService;
 use IM\Fabric\Bundle\AndroidServicesBundle\Model\AndroidPublisherModel;
-use IM\Fabric\Bundle\WebhooksCommonBundle\Client\Google\Object\DeveloperNotification;
-use IM\Fabric\Bundle\WebhooksCommonBundle\Client\Google\Object\SubscriptionNotification;
-use IM\Fabric\Bundle\WebhooksCommonBundle\Datadog;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AndroidPublisherServiceTest extends TestCase
 {
@@ -24,7 +24,7 @@ class AndroidPublisherServiceTest extends TestCase
 
     private AndroidServicesApi $unit;
     private AndroidPublisherService $serviceFactory;
-    private Datadog $datadog;
+    private EventDispatcherInterface $eventDispatcher;
     private AndroidPublisher $service;
     private PurchasesSubscriptions $purchaseSubs;
     private PurchasesSubscriptionsv2 $purchaseSubsV2;
@@ -33,7 +33,7 @@ class AndroidPublisherServiceTest extends TestCase
     protected function setUp(): void
     {
         $this->serviceFactory = Mockery::mock(AndroidPublisherService::class);
-        $this->datadog = Mockery::mock(Datadog::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
         $this->service = Mockery::mock(AndroidPublisher::class);
         $this->purchaseSubs = Mockery::mock(PurchasesSubscriptions::class);
@@ -44,36 +44,47 @@ class AndroidPublisherServiceTest extends TestCase
         $this->service->purchases_subscriptionsv2 = $this->purchaseSubsV2;
         $this->service->monetization_subscriptions = $this->monetizationSubs;
 
-        $this->unit = new AndroidServicesApi($this->serviceFactory, $this->datadog);
+        $this->unit = new AndroidServicesApi($this->serviceFactory, $this->eventDispatcher);
     }
 
+    /**
+     * @throws AndroidServiceException
+     */
     public function testItCannotGetPurchaseSubscriptionDataForNoneSubscriptionNotifications(): void
     {
+        // Given
         $androidPublisherModel = new AndroidPublisherModel('mock.app.name');
-        $androidPublisherModel
-            ->setPurchaseToken('mock.token')
+        $androidPublisherModel->setPurchaseToken('mock.token')
             ->setSubscriptionId('mock.sub.id');
 
-        $this->serviceFactory->shouldNotHaveReceived('build');
+        $this->serviceFactory->expects('build')->twice()->andReturn($this->service);
 
-        $this->purchaseSubs->shouldNotHaveReceived('get');
-        $this->purchaseSubsV2->shouldNotHaveReceived('get');
+        // When
+        $this->purchaseSubs->expects('get')->once();
+        $this->purchaseSubsV2->expects('get')->once();
 
+        // Then
+        $this->eventDispatcher->expects('dispatch')->twice();
         $this->assertNull($this->unit->getPurchaseSubscription($androidPublisherModel));
         $this->assertNull($this->unit->getPurchaseSubscriptionV2($androidPublisherModel));
     }
 
+    /**
+     * @throws AndroidServiceException
+     */
     public function testItCannotGetPurchaseSubscriptionDataForInvalidApiClients(): void
     {
+        // Given
         $androidPublisherModel = new AndroidPublisherModel('mock.app.name');
         $androidPublisherModel
             ->setPurchaseToken('mock.token')
             ->setSubscriptionId('mock.sub.id');
 
         $this->serviceFactory->expects('build')
-            ->times(2)
+            ->once()
             ->andReturn($this->service);
 
+        // When
         $this->purchaseSubs->expects('get')
             ->once()
             ->with(
@@ -83,6 +94,25 @@ class AndroidPublisherServiceTest extends TestCase
             )
             ->andThrows(Exception::class);
 
+        // Then
+        $this->eventDispatcher->expects('dispatch')->once();
+        $this->expectException(AndroidServiceException::class);
+        $this->assertNull($this->unit->getPurchaseSubscription($androidPublisherModel));
+    }
+
+    public function testItCannotGetPurchaseSubscriptionV2DataForInvalidApiClients(): void
+    {
+        // Given
+        $androidPublisherModel = new AndroidPublisherModel('mock.app.name');
+        $androidPublisherModel
+            ->setPurchaseToken('mock.token')
+            ->setSubscriptionId('mock.sub.id');
+
+        $this->serviceFactory->expects('build')
+            ->once()
+            ->andReturn($this->service);
+
+        // When
         $this->purchaseSubsV2->expects('get')
             ->once()
             ->with(
@@ -91,26 +121,36 @@ class AndroidPublisherServiceTest extends TestCase
             )
             ->andThrows(Exception::class);
 
-        $this->datadog->expects('sendEvent')->times(2);
+        // Then
+        $this->eventDispatcher->expects('dispatch')->once();
 
-        $this->assertNull($this->unit->getPurchaseSubscription($androidPublisherModel));
+        $this->expectException(AndroidServiceException::class);
+
         $this->assertNull($this->unit->getPurchaseSubscriptionV2($androidPublisherModel));
     }
 
+    /**
+     * @throws AndroidServiceException
+     */
     public function testItCanRetrieveAListOfSubscriptionsForAPackage(): void
     {
+        // Given
         $this->serviceFactory->expects('build')
             ->times(1)
             ->andReturn($this->service);
 
-        $response = new ListSubscriptionsResponse();
+        // When
+        $this->monetizationSubs->expects(
+            'listMonetizationSubscriptions')
+            ->once()
+            ->andReturns(new ListSubscriptionsResponse()
+            );
 
-        $this->monetizationSubs->expects('listMonetizationSubscriptions')->once()->andReturns($response);
+        $this->eventDispatcher->expects('dispatch')->once();
 
-        $androidPublisherModel = new AndroidPublisherModel('mock.app.name');
+        $actual = $this->unit->getPackageSubscriptions(new AndroidPublisherModel('mock.app.name'));
 
-        $actual = $this->unit->getPackageSubscriptions($androidPublisherModel);
-
+        // Then
         $this->assertInstanceOf(ListSubscriptionsResponse::class, $actual);
     }
 }
