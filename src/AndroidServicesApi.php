@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IM\Fabric\Bundle\AndroidServicesBundle;
 
+use Google\Exception;
 use IM\Fabric\Bundle\AndroidServicesBundle\Event\AndroidServiceEvent;
 use IM\Fabric\Bundle\AndroidServicesBundle\Exception\AndroidServiceException;
 use IM\Fabric\Bundle\AndroidServicesBundle\Factory\AndroidPublisherService;
@@ -55,7 +56,7 @@ class AndroidServicesApi
             );
 
             return $result;
-        } catch (Throwable $exception) {
+        } catch (Exception $exception) {
             $this->eventDispatcher->dispatch(
                 new AndroidServiceEvent(
                     AndroidServiceEvent::FAIL_MESSAGE),
@@ -91,7 +92,7 @@ class AndroidServicesApi
             );
 
             return $result;
-        } catch (Throwable $exception) {
+        } catch (Exception $exception) {
             $this->eventDispatcher->dispatch(
                 new AndroidServiceEvent(
                     AndroidServiceEvent::FAIL_MESSAGE),
@@ -131,7 +132,7 @@ class AndroidServicesApi
             );
 
             return $result;
-        } catch (Throwable $exception) {
+        } catch (Exception $exception) {
             $this->eventDispatcher->dispatch(
                 new AndroidServiceEvent(
                     AndroidServiceEvent::FAIL_MESSAGE),
