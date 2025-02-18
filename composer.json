@@ -42,7 +42,8 @@
         "check-coverage": "vendor/bin/phpunit --coverage-html build && open build/index.html",
         "run-tests": "composer run-phpunit && composer run-phpcs && composer run-phpmd && composer run-phplint",
         "run-phpcs": "vendor/bin/phpcs",
-        "run-phpmd": "vendor/bin/phpmd src text phpmd-src.xml && vendor/bin/phpmd tests phpmd-tests.xml",
+        "run-phpcbf": "vendor/bin/phpcbf",
+        "run-phpmd": "vendor/bin/phpmd src text phpmd-src.xml && vendor/bin/phpmd tests text phpmd-test.xml",
         "run-phplint": "vendor/bin/phplint",
         "run-phpunit": "vendor/bin/phpunit --testdox --exclude-testsuite=Feature"
     },

@@ -17,7 +17,10 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class AndroidPublisherServiceTest extends TestCase
+/**
+ * @SuppressWarnings("LongVariable")
+ */
+class AndroidServiceApiTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
@@ -139,11 +142,9 @@ class AndroidPublisherServiceTest extends TestCase
             ->andReturn($this->service);
 
         // When
-        $this->monetizationSubs->expects(
-            'listMonetizationSubscriptions')
+        $this->monetizationSubs->expects('listMonetizationSubscriptions')
             ->once()
-            ->andReturns(new ListSubscriptionsResponse()
-            );
+            ->andReturns(new ListSubscriptionsResponse());
 
         $this->eventDispatcher->expects('dispatch')->once();
 

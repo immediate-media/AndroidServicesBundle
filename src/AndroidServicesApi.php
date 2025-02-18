@@ -17,26 +17,27 @@ use IM\Fabric\Bundle\AndroidServicesBundle\Traits\ThrowAndroidServiceException;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Throwable;
 
+/**
+ * @SuppressWarnings("LongVariable")
+ */
 class AndroidServicesApi
 {
     use ThrowAndroidServiceException;
 
     public function __construct(
-        private AndroidPublisherService  $serviceFactory,
+        private AndroidPublisherService $serviceFactory,
         private EventDispatcherInterface $eventDispatcher
-    )
-    {
+    ) {
     }
 
 
     /**
-     * @info currently used by sub-notification-api only,
-     * should be removed once sub-notification-api is updated
-     * @dprecated
-     * @throws AndroidServiceException
+     * @throws AndroidServiceException|\JsonException
+     * @deprecated
      */
-    public function getPurchaseSubscription(AndroidPublisherModelInterface $androidPublisherModel): ?SubscriptionPurchase
-    {
+    public function getPurchaseSubscription(
+        AndroidPublisherModelInterface $androidPublisherModel
+    ): ?SubscriptionPurchase {
         if (!$androidPublisherModel->getPurchaseToken() || !$androidPublisherModel->getSubscriptionId()) {
             return null;
         }
@@ -51,7 +52,8 @@ class AndroidServicesApi
 
             $this->eventDispatcher->dispatch(
                 new AndroidServiceEvent(
-                    AndroidServiceEvent::SUCCESS_MESSAGE),
+                    AndroidServiceEvent::SUCCESS_MESSAGE
+                ),
                 AndroidServiceEvent::SUCCESS
             );
 
@@ -59,7 +61,8 @@ class AndroidServicesApi
         } catch (Exception $exception) {
             $this->eventDispatcher->dispatch(
                 new AndroidServiceEvent(
-                    AndroidServiceEvent::FAIL_MESSAGE),
+                    AndroidServiceEvent::FAIL_MESSAGE
+                ),
                 AndroidServiceEvent::FAIL
             );
             throw new AndroidServiceException(
@@ -73,8 +76,9 @@ class AndroidServicesApi
     /**
      * @throws AndroidServiceException
      */
-    public function getPurchaseSubscriptionV2(AndroidPublisherModelInterface $androidPublisherModel): ?SubscriptionPurchaseV2
-    {
+    public function getPurchaseSubscriptionV2(
+        AndroidPublisherModelInterface $androidPublisherModel
+    ): ?SubscriptionPurchaseV2 {
         if (!$androidPublisherModel->getPurchaseToken()) {
             return null;
         }
@@ -87,7 +91,8 @@ class AndroidServicesApi
 
             $this->eventDispatcher->dispatch(
                 new AndroidServiceEvent(
-                    AndroidServiceEvent::SUCCESS_MESSAGE),
+                    AndroidServiceEvent::SUCCESS_MESSAGE
+                ),
                 AndroidServiceEvent::SUCCESS
             );
 
@@ -95,7 +100,8 @@ class AndroidServicesApi
         } catch (Exception $exception) {
             $this->eventDispatcher->dispatch(
                 new AndroidServiceEvent(
-                    AndroidServiceEvent::FAIL_MESSAGE),
+                    AndroidServiceEvent::FAIL_MESSAGE
+                ),
                 AndroidServiceEvent::FAIL
             );
             throw new AndroidServiceException(
@@ -109,8 +115,9 @@ class AndroidServicesApi
     /**
      * @throws AndroidServiceException
      */
-    public function getBasePlanOffers(AndroidPublisherModelInterface $androidPublisherModel): ?ListSubscriptionOffersResponse
-    {
+    public function getBasePlanOffers(
+        AndroidPublisherModelInterface $androidPublisherModel
+    ): ?ListSubscriptionOffersResponse {
         if (!$androidPublisherModel->getProductId() || !$androidPublisherModel->getBasePlanId()) {
             return null;
         }
@@ -127,7 +134,8 @@ class AndroidServicesApi
 
             $this->eventDispatcher->dispatch(
                 new AndroidServiceEvent(
-                    AndroidServiceEvent::SUCCESS_MESSAGE),
+                    AndroidServiceEvent::SUCCESS_MESSAGE
+                ),
                 AndroidServiceEvent::SUCCESS
             );
 
@@ -135,7 +143,8 @@ class AndroidServicesApi
         } catch (Exception $exception) {
             $this->eventDispatcher->dispatch(
                 new AndroidServiceEvent(
-                    AndroidServiceEvent::FAIL_MESSAGE),
+                    AndroidServiceEvent::FAIL_MESSAGE
+                ),
                 AndroidServiceEvent::FAIL
             );
             throw new AndroidServiceException(
@@ -149,8 +158,9 @@ class AndroidServicesApi
     /**
      * @throws AndroidServiceException
      */
-    public function getPackageSubscriptions(AndroidPublisherModelInterface $androidPublisherModel): ?ListSubscriptionsResponse
-    {
+    public function getPackageSubscriptions(
+        AndroidPublisherModelInterface $androidPublisherModel
+    ): ?ListSubscriptionsResponse {
         try {
             $service = $this->serviceFactory->build();
             $result = $service
@@ -161,7 +171,8 @@ class AndroidServicesApi
 
             $this->eventDispatcher->dispatch(
                 new AndroidServiceEvent(
-                    AndroidServiceEvent::SUCCESS_MESSAGE),
+                    AndroidServiceEvent::SUCCESS_MESSAGE
+                ),
                 AndroidServiceEvent::SUCCESS
             );
 
@@ -169,7 +180,8 @@ class AndroidServicesApi
         } catch (Throwable $exception) {
             $this->eventDispatcher->dispatch(
                 new AndroidServiceEvent(
-                    AndroidServiceEvent::FAIL_MESSAGE),
+                    AndroidServiceEvent::FAIL_MESSAGE
+                ),
                 AndroidServiceEvent::FAIL
             );
             throw new AndroidServiceException(

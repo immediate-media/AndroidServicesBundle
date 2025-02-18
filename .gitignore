@@ -51,3 +51,4 @@
 .idea
 .phplint.cache
 .phpunit.cache
+.phpcs-cache

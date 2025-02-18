@@ -18,5 +18,4 @@ trait ThrowAndroidServiceException
 
         throw new AndroidServiceException((string) $violations);
     }
-
 }

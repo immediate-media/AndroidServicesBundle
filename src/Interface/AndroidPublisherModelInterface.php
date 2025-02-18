@@ -17,5 +17,4 @@ interface AndroidPublisherModelInterface
     public function getProductId(): ?string;
 
     public function getOptParams(): ?array;
-
 }
