@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IM\Fabric\Bundle\AndroidServicesBundle\Test\Unit\Factory;
 
 use Google\Client;

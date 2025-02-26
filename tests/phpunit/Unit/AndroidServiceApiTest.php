@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IM\Fabric\Bundle\AndroidServicesBundle\Test\Unit;
 
 use Google\Exception;
@@ -12,6 +14,7 @@ use IM\Fabric\Bundle\AndroidServicesBundle\AndroidServicesApi;
 use IM\Fabric\Bundle\AndroidServicesBundle\Exception\AndroidServiceException;
 use IM\Fabric\Bundle\AndroidServicesBundle\Factory\AndroidPublisherService;
 use IM\Fabric\Bundle\AndroidServicesBundle\Model\AndroidPublisherModel;
+use JsonException;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -50,7 +53,7 @@ class AndroidServiceApiTest extends TestCase
     }
 
     /**
-     * @throws AndroidServiceException
+     * @throws AndroidServiceException | JsonException
      */
     public function testItCannotGetPurchaseSubscriptionDataForNoneSubscriptionNotifications(): void
     {
@@ -72,7 +75,7 @@ class AndroidServiceApiTest extends TestCase
     }
 
     /**
-     * @throws AndroidServiceException
+     * @throws AndroidServiceException|JsonException
      */
     public function testItCannotGetPurchaseSubscriptionDataForInvalidApiClients(): void
     {

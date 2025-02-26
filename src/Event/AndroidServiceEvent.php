@@ -10,8 +10,6 @@ class AndroidServiceEvent extends Event
 {
     public const SUCCESS = 'android.service.success';
     public const SUCCESS_MESSAGE = 'Purchase subscription retrieved successfully';
-    public const FAIL = 'android.service.failure';
-    public const FAIL_MESSAGE = 'Failed to retrieve purchase subscription';
 
     private string $message;
 

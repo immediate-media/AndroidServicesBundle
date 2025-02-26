@@ -14,8 +14,8 @@ use Google\Service\AndroidPublisher\ListSubscriptionsResponse;
 use Google\Service\AndroidPublisher\SubscriptionPurchase;
 use Google\Service\AndroidPublisher\SubscriptionPurchaseV2;
 use IM\Fabric\Bundle\AndroidServicesBundle\Traits\ThrowAndroidServiceException;
+use JsonException;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Throwable;
 
 /**
  * @SuppressWarnings("LongVariable")
@@ -23,6 +23,9 @@ use Throwable;
 class AndroidServicesApi
 {
     use ThrowAndroidServiceException;
+
+    private const string FAIL = 'android.service.failure';
+    private const string FAIL_MESSAGE = 'Failed to retrieve purchase subscription';
 
     public function __construct(
         private AndroidPublisherService $serviceFactory,
@@ -32,7 +35,7 @@ class AndroidServicesApi
 
 
     /**
-     * @throws AndroidServiceException|\JsonException
+     * @throws AndroidServiceException|JsonException
      * @deprecated
      */
     public function getPurchaseSubscription(
@@ -59,23 +62,15 @@ class AndroidServicesApi
 
             return $result;
         } catch (Exception $exception) {
-            $this->eventDispatcher->dispatch(
-                new AndroidServiceEvent(
-                    AndroidServiceEvent::FAIL_MESSAGE
-                ),
-                AndroidServiceEvent::FAIL
-            );
             throw new AndroidServiceException(
-                AndroidServiceEvent::FAIL_MESSAGE,
+                self::FAIL_MESSAGE,
                 $exception->getCode(),
                 $exception
             );
         }
     }
 
-    /**
-     * @throws AndroidServiceException
-     */
+    /** @throws AndroidServiceException|JsonException */
     public function getPurchaseSubscriptionV2(
         AndroidPublisherModelInterface $androidPublisherModel
     ): ?SubscriptionPurchaseV2 {
@@ -98,23 +93,15 @@ class AndroidServicesApi
 
             return $result;
         } catch (Exception $exception) {
-            $this->eventDispatcher->dispatch(
-                new AndroidServiceEvent(
-                    AndroidServiceEvent::FAIL_MESSAGE
-                ),
-                AndroidServiceEvent::FAIL
-            );
             throw new AndroidServiceException(
-                AndroidServiceEvent::FAIL_MESSAGE,
+                self::FAIL_MESSAGE,
                 $exception->getCode(),
                 $exception
             );
         }
     }
 
-    /**
-     * @throws AndroidServiceException
-     */
+    /** @throws AndroidServiceException|JsonException */
     public function getBasePlanOffers(
         AndroidPublisherModelInterface $androidPublisherModel
     ): ?ListSubscriptionOffersResponse {
@@ -141,23 +128,15 @@ class AndroidServicesApi
 
             return $result;
         } catch (Exception $exception) {
-            $this->eventDispatcher->dispatch(
-                new AndroidServiceEvent(
-                    AndroidServiceEvent::FAIL_MESSAGE
-                ),
-                AndroidServiceEvent::FAIL
-            );
             throw new AndroidServiceException(
-                AndroidServiceEvent::FAIL_MESSAGE,
+                self::FAIL_MESSAGE,
                 $exception->getCode(),
                 $exception
             );
         }
     }
 
-    /**
-     * @throws AndroidServiceException
-     */
+    /** @throws AndroidServiceException|JsonException */
     public function getPackageSubscriptions(
         AndroidPublisherModelInterface $androidPublisherModel
     ): ?ListSubscriptionsResponse {
@@ -177,15 +156,9 @@ class AndroidServicesApi
             );
 
             return $result;
-        } catch (Throwable $exception) {
-            $this->eventDispatcher->dispatch(
-                new AndroidServiceEvent(
-                    AndroidServiceEvent::FAIL_MESSAGE
-                ),
-                AndroidServiceEvent::FAIL
-            );
+        } catch (Exception $exception) {
             throw new AndroidServiceException(
-                AndroidServiceEvent::FAIL_MESSAGE,
+                self::FAIL_MESSAGE,
                 $exception->getCode(),
                 $exception
             );

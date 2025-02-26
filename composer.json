@@ -15,7 +15,7 @@
         ]
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.3",
         "google/apiclient": "^2.10",
         "symfony/validator": "6.4.*"
     },
@@ -45,7 +45,7 @@
         "run-phpcbf": "vendor/bin/phpcbf",
         "run-phpmd": "vendor/bin/phpmd src text phpmd-src.xml && vendor/bin/phpmd tests text phpmd-test.xml",
         "run-phplint": "vendor/bin/phplint",
-        "run-phpunit": "vendor/bin/phpunit --testdox --exclude-testsuite=Feature"
+        "run-phpunit": "vendor/bin/phpunit --testdox"
     },
     "config": {
         "optimize-autoloader": true,
