@@ -16,8 +16,8 @@ class AuthenticatorTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
-    private const  MOCK_SCOPE = 'https://www.mock.google.scope/some/service';
-    private const  MOCK_CREDENTIALS = '{
+    private const  string MOCK_SCOPE = 'https://www.mock.google.scope/some/service';
+    private const  string MOCK_CREDENTIALS = '{
         "type": "service_account",
         "project_id": "mock_project_id",
         "private_key_id": "mock_key_id",
@@ -30,9 +30,7 @@ class AuthenticatorTest extends TestCase
         "client_x509_cert_url": "mock_url"
     }';
 
-    /**
-     * @throws Exception
-     */
+    /**@throws Exception*/
     public function testItThrowsAnExceptionIfTheCertIsNotValidJson(): void
     {
         $client = Mockery::mock(Client::class);
@@ -41,9 +39,7 @@ class AuthenticatorTest extends TestCase
         $unit->getAuthenticatedClient(self::MOCK_SCOPE);
     }
 
-    /**
-     * @throws Exception|JsonException
-     */
+    /**@throws Exception|JsonException*/
     public function testItReturnsAnAuthenticatedClientFromAMatchedApp(): void
     {
         $client = Mockery::mock(Client::class);

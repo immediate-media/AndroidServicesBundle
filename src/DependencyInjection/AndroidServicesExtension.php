@@ -12,7 +12,6 @@ class AndroidServicesExtension extends Extension
 {
     /**
      * @throws Exception
-     * @SuppressWarnings(PHPMD)
      */
     public function load(array $configs, ContainerBuilder $container): void
     {

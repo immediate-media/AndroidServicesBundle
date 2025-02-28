@@ -52,3 +52,4 @@
 .phplint.cache
 .phpunit.cache
 .phpcs-cache
+composer.lock

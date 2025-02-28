@@ -6,7 +6,7 @@ use IM\Fabric\Bundle\AndroidServicesBundle\Exception\AndroidServiceException;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 
-trait ThrowAndroidServiceException
+trait HasAndroidServiceException
 {
     /**
      * @throws AndroidServiceException

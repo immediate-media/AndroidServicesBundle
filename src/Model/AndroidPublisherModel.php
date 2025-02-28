@@ -8,16 +8,14 @@ use IM\Fabric\Bundle\AndroidServicesBundle\Interface\AndroidPublisherModelInterf
 
 class AndroidPublisherModel implements AndroidPublisherModelInterface
 {
-    private string $packageName;
-    private ?string $subscriptionId;
-    private ?string $purchaseToken;
-    private ?string $basePlanId;
-    private ?string $productId;
-    private ?array $optParams;
-
-    public function __construct(string $packageName)
-    {
-        $this->packageName = $packageName;
+    public function __construct(
+        public readonly string $packageName,
+        private ?string $subscriptionId = null,
+        private ?string $purchaseToken = null,
+        private ?string $basePlanId = null,
+        private ?string $productId = null,
+        private ?array $optParams = null
+    ) {
     }
 
     public function setSubscriptionId(string $subscriptionId): AndroidPublisherModel

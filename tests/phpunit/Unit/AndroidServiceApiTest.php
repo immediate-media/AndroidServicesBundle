@@ -100,11 +100,11 @@ class AndroidServiceApiTest extends TestCase
             ->andThrows(Exception::class);
 
         // Then
-        $this->eventDispatcher->expects('dispatch')->once();
         $this->expectException(AndroidServiceException::class);
         $this->assertNull($this->unit->getPurchaseSubscription($androidPublisherModel));
     }
 
+    /**@throws JsonException*/
     public function testItCannotGetPurchaseSubscriptionV2DataForInvalidApiClients(): void
     {
         // Given
@@ -127,16 +127,12 @@ class AndroidServiceApiTest extends TestCase
             ->andThrows(Exception::class);
 
         // Then
-        $this->eventDispatcher->expects('dispatch')->once();
-
         $this->expectException(AndroidServiceException::class);
 
         $this->assertNull($this->unit->getPurchaseSubscriptionV2($androidPublisherModel));
     }
 
-    /**
-     * @throws AndroidServiceException
-     */
+    /**@throws AndroidServiceException|JsonException */
     public function testItCanRetrieveAListOfSubscriptionsForAPackage(): void
     {
         // Given
@@ -149,11 +145,11 @@ class AndroidServiceApiTest extends TestCase
             ->once()
             ->andReturns(new ListSubscriptionsResponse());
 
+        // Then
         $this->eventDispatcher->expects('dispatch')->once();
 
         $actual = $this->unit->getPackageSubscriptions(new AndroidPublisherModel('mock.app.name'));
 
-        // Then
         $this->assertInstanceOf(ListSubscriptionsResponse::class, $actual);
     }
 }

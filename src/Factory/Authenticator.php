@@ -25,6 +25,7 @@ class Authenticator
     {
         $this->client->setAuthConfig($this->getAuthConfig());
         $this->client->setScopes($scopes);
+
         return $this->client;
     }
 

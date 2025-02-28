@@ -13,7 +13,7 @@ use Google\Service\AndroidPublisher\ListSubscriptionOffersResponse;
 use Google\Service\AndroidPublisher\ListSubscriptionsResponse;
 use Google\Service\AndroidPublisher\SubscriptionPurchase;
 use Google\Service\AndroidPublisher\SubscriptionPurchaseV2;
-use IM\Fabric\Bundle\AndroidServicesBundle\Traits\ThrowAndroidServiceException;
+use IM\Fabric\Bundle\AndroidServicesBundle\Traits\HasAndroidServiceException;
 use JsonException;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -22,7 +22,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 class AndroidServicesApi
 {
-    use ThrowAndroidServiceException;
+    use HasAndroidServiceException;
 
     private const string FAIL = 'android.service.failure';
     private const string FAIL_MESSAGE = 'Failed to retrieve purchase subscription';

@@ -20,7 +20,8 @@ class AndroidPublisherService
      */
     public function build(): AndroidPublisher
     {
-        $client = $this->clientFactory->getAuthenticatedClient(AndroidPublisher::ANDROIDPUBLISHER);
-        return new AndroidPublisher($client);
+        return new AndroidPublisher(
+            $this->clientFactory->getAuthenticatedClient(AndroidPublisher::ANDROIDPUBLISHER)
+        );
     }
 }

@@ -11,9 +11,6 @@
     <file>src/</file>
     <file>tests/</file>
 
-    <!-- Ignore app bootstrap -->
-    <exclude-pattern>config/bootstrap.php</exclude-pattern>
-
     <!-- Ignore the bootstrap file for tests -->
     <exclude-pattern>tests/bootstrap.php</exclude-pattern>
 

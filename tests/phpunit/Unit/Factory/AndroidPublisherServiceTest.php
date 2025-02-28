@@ -12,6 +12,7 @@ use Google\Service\AndroidPublisher\Resource\PurchasesSubscriptions;
 use Google\Service\AndroidPublisher\Resource\PurchasesSubscriptionsv2;
 use IM\Fabric\Bundle\AndroidServicesBundle\Factory\AndroidPublisherService;
 use IM\Fabric\Bundle\AndroidServicesBundle\Factory\Authenticator;
+use JsonException;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -30,47 +31,47 @@ class AndroidPublisherServiceTest extends TestCase
         $this->unit = new AndroidPublisherService($this->authenticator);
     }
 
-    /**
-     * @throws Exception
-     * @throws \JsonException
-     */
+    /**@throws Exception|JsonException*/
     public function testItReturnsAnAuthenticatedAndroidPublisherClient(): void
     {
+        // Given
         $this->authenticator->expects('getAuthenticatedClient')->once()->andReturn(new Client());
+        // When
         $client = $this->unit->build();
+        // Then
         $this->assertInstanceOf(AndroidPublisher::class, $client);
     }
 
-    /**
-     * @throws Exception
-     * @throws \JsonException
-     */
+    /**@throws Exception|JsonException*/
     public function testTheAndroidPublisherClientContainsPurchaseSubscriptionsComponent(): void
     {
+        // Given
         $this->authenticator->expects('getAuthenticatedClient')->once()->andReturn(new Client());
+        // When
         $client = $this->unit->build();
+        // Then
         $this->assertInstanceOf(PurchasesSubscriptions::class, $client->purchases_subscriptions);
     }
 
-    /**
-     * @throws Exception
-     * @throws \JsonException
-     */
+    /**@throws Exception|JsonException*/
     public function testTheAndroidPublisherClientContainsPurchaseSubscriptionsV2Component(): void
     {
+        // Given
         $this->authenticator->expects('getAuthenticatedClient')->once()->andReturn(new Client());
+        // When
         $client = $this->unit->build();
+        // Then
         $this->assertInstanceOf(PurchasesSubscriptionsv2::class, $client->purchases_subscriptionsv2);
     }
 
-    /**
-     * @throws Exception
-     * @throws \JsonException
-     */
+    /**@throws Exception|JsonException*/
     public function testTheAndroidPublisherClientContainsMonetizationSubscriptionsComponent(): void
     {
+        // Given
         $this->authenticator->expects('getAuthenticatedClient')->once()->andReturn(new Client());
+        // When
         $client = $this->unit->build();
+        // Then
         $this->assertInstanceOf(MonetizationSubscriptions::class, $client->monetization_subscriptions);
     }
 }

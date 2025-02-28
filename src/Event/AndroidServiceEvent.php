@@ -8,14 +8,11 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class AndroidServiceEvent extends Event
 {
-    public const SUCCESS = 'android.service.success';
-    public const SUCCESS_MESSAGE = 'Purchase subscription retrieved successfully';
+    public const string SUCCESS = 'android.service.success';
+    public const string SUCCESS_MESSAGE = 'Purchase subscription retrieved successfully';
 
-    private string $message;
-
-    public function __construct(string $message)
+    public function __construct(private readonly string $message)
     {
-        $this->message = $message;
     }
 
     public function getMessage(): string
