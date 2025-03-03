@@ -28,7 +28,7 @@ class AndroidServicesApi
     private const string FAIL_MESSAGE = 'Failed to retrieve purchase subscription';
 
     public function __construct(
-        private readonly AndroidPublisherService  $androidPublisherService,
+        private readonly AndroidPublisherService $androidPublisherService,
         private readonly EventDispatcherInterface $eventDispatcher
     ) {
     }
