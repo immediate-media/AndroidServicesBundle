@@ -11,17 +11,15 @@ use JsonException;
 class AndroidPublisherService
 {
     public function __construct(
-        private Authenticator $clientFactory
+        private readonly Authenticator $clientAuth
     ) {
     }
 
-    /**
-     * @throws Exception | JsonException
-     */
+    /**@throws Exception | JsonException*/
     public function build(): AndroidPublisher
     {
         return new AndroidPublisher(
-            $this->clientFactory->getAuthenticatedClient(AndroidPublisher::ANDROIDPUBLISHER)
+            $this->clientAuth->getAuthenticatedClient(AndroidPublisher::ANDROIDPUBLISHER)
         );
     }
 }

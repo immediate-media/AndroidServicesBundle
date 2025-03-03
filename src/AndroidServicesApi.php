@@ -28,11 +28,10 @@ class AndroidServicesApi
     private const string FAIL_MESSAGE = 'Failed to retrieve purchase subscription';
 
     public function __construct(
-        private AndroidPublisherService $serviceFactory,
-        private EventDispatcherInterface $eventDispatcher
+        private readonly AndroidPublisherService  $androidPublisherService,
+        private readonly EventDispatcherInterface $eventDispatcher
     ) {
     }
-
 
     /**
      * @throws AndroidServiceException|JsonException
@@ -46,7 +45,7 @@ class AndroidServicesApi
         }
 
         try {
-            $service = $this->serviceFactory->build();
+            $service = $this->androidPublisherService->build();
             $result = $service->purchases_subscriptions->get(
                 $androidPublisherModel->getPackageName(),
                 $androidPublisherModel->getSubscriptionId(),
@@ -54,9 +53,7 @@ class AndroidServicesApi
             );
 
             $this->eventDispatcher->dispatch(
-                new AndroidServiceEvent(
-                    AndroidServiceEvent::SUCCESS_MESSAGE
-                ),
+                new AndroidServiceEvent(AndroidServiceEvent::SUCCESS_MESSAGE),
                 AndroidServiceEvent::SUCCESS
             );
 
@@ -79,15 +76,13 @@ class AndroidServicesApi
         }
 
         try {
-            $service = $this->serviceFactory->build();
+            $service = $this->androidPublisherService->build();
             $result = $service
                 ->purchases_subscriptionsv2
                 ->get($androidPublisherModel->getPackageName(), $androidPublisherModel->getPurchaseToken());
 
             $this->eventDispatcher->dispatch(
-                new AndroidServiceEvent(
-                    AndroidServiceEvent::SUCCESS_MESSAGE
-                ),
+                new AndroidServiceEvent(AndroidServiceEvent::SUCCESS_MESSAGE),
                 AndroidServiceEvent::SUCCESS
             );
 
@@ -110,7 +105,7 @@ class AndroidServicesApi
         }
 
         try {
-            $service = $this->serviceFactory->build();
+            $service = $this->androidPublisherService->build();
             $result = $service
                 ->monetization_subscriptions_basePlans_offers
                 ->listMonetizationSubscriptionsBasePlansOffers(
@@ -120,9 +115,7 @@ class AndroidServicesApi
                 );
 
             $this->eventDispatcher->dispatch(
-                new AndroidServiceEvent(
-                    AndroidServiceEvent::SUCCESS_MESSAGE
-                ),
+                new AndroidServiceEvent(AndroidServiceEvent::SUCCESS_MESSAGE),
                 AndroidServiceEvent::SUCCESS
             );
 
@@ -141,7 +134,7 @@ class AndroidServicesApi
         AndroidPublisherModelInterface $androidPublisherModel
     ): ?ListSubscriptionsResponse {
         try {
-            $service = $this->serviceFactory->build();
+            $service = $this->androidPublisherService->build();
             $result = $service
                 ->monetization_subscriptions
                 ->listMonetizationSubscriptions(
@@ -149,9 +142,7 @@ class AndroidServicesApi
                 );
 
             $this->eventDispatcher->dispatch(
-                new AndroidServiceEvent(
-                    AndroidServiceEvent::SUCCESS_MESSAGE
-                ),
+                new AndroidServiceEvent(AndroidServiceEvent::SUCCESS_MESSAGE),
                 AndroidServiceEvent::SUCCESS
             );
 

@@ -18,37 +18,39 @@ class AndroidPublisherModel implements AndroidPublisherModelInterface
     ) {
     }
 
-    public function setSubscriptionId(string $subscriptionId): AndroidPublisherModel
+    public function setSubscriptionId(string $subscriptionId): static
     {
         $this->subscriptionId = $subscriptionId;
 
         return $this;
     }
 
-    public function setPurchaseToken(string $purchaseToken): AndroidPublisherModel
+    public function setPurchaseToken(string $purchaseToken): static
     {
         $this->purchaseToken = $purchaseToken;
 
         return $this;
     }
 
-    public function setBasePlanId(string $basePlanId): AndroidPublisherModel
+    public function setBasePlanId(string $basePlanId): static
     {
         $this->basePlanId = $basePlanId;
 
         return $this;
     }
 
-    public function setOptParams(array $optParams): AndroidPublisherModel
+    public function setOptParams(array $optParams): static
     {
         $this->optParams = $optParams;
 
         return $this;
     }
 
-    public function setProductId(string $productId): void
+    public function setProductId(string $productId): static
     {
         $this->productId = $productId;
+
+        return $this;
     }
 
     public function getBasePlanId(): ?string

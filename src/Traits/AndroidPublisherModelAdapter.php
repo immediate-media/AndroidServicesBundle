@@ -11,6 +11,6 @@ trait AndroidPublisherModelAdapter
 {
     public function androidPublisherModelAdapter(AndroidPublisherDataInterface $notificationData): AndroidPublisherModel
     {
-        return (new AndroidPublisherModel($notificationData->getPackageName()));
+        return new AndroidPublisherModel($notificationData->getPackageName());
     }
 }

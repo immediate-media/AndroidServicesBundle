@@ -52,9 +52,7 @@ class AndroidServiceApiTest extends TestCase
         $this->unit = new AndroidServicesApi($this->serviceFactory, $this->eventDispatcher);
     }
 
-    /**
-     * @throws AndroidServiceException | JsonException
-     */
+    /** @throws AndroidServiceException | JsonException */
     public function testItCannotGetPurchaseSubscriptionDataForNoneSubscriptionNotifications(): void
     {
         // Given
@@ -74,9 +72,7 @@ class AndroidServiceApiTest extends TestCase
         $this->assertNull($this->unit->getPurchaseSubscriptionV2($androidPublisherModel));
     }
 
-    /**
-     * @throws AndroidServiceException|JsonException
-     */
+    /** @throws AndroidServiceException|JsonException */
     public function testItCannotGetPurchaseSubscriptionDataForInvalidApiClients(): void
     {
         // Given
@@ -104,7 +100,7 @@ class AndroidServiceApiTest extends TestCase
         $this->assertNull($this->unit->getPurchaseSubscription($androidPublisherModel));
     }
 
-    /**@throws JsonException*/
+    /** @throws JsonException */
     public function testItCannotGetPurchaseSubscriptionV2DataForInvalidApiClients(): void
     {
         // Given
@@ -132,7 +128,7 @@ class AndroidServiceApiTest extends TestCase
         $this->assertNull($this->unit->getPurchaseSubscriptionV2($androidPublisherModel));
     }
 
-    /**@throws AndroidServiceException|JsonException */
+    /** @throws AndroidServiceException|JsonException */
     public function testItCanRetrieveAListOfSubscriptionsForAPackage(): void
     {
         // Given
