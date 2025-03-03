@@ -10,9 +10,8 @@ use JsonException;
 
 class AndroidPublisherService
 {
-    public function __construct(
-        private readonly Authenticator $clientAuth
-    ) {
+    public function __construct(private readonly Authenticator $clientAuth)
+    {
     }
 
     /**@throws Exception | JsonException*/
