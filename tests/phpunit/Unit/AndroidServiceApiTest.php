@@ -20,9 +20,7 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @SuppressWarnings("LongVariable")
- */
+/** @SuppressWarnings("LongVariable") */
 class AndroidServiceApiTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
