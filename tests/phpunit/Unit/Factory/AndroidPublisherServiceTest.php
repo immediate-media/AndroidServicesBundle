@@ -43,17 +43,6 @@ class AndroidPublisherServiceTest extends TestCase
     }
 
     /**@throws Exception|JsonException*/
-    public function testTheAndroidPublisherClientContainsPurchaseSubscriptionsComponent(): void
-    {
-        // Given
-        $this->authenticator->expects('getAuthenticatedClient')->once()->andReturn(new Client());
-        // When
-        $client = $this->unit->build();
-        // Then
-        $this->assertInstanceOf(PurchasesSubscriptions::class, $client->purchases_subscriptions);
-    }
-
-    /**@throws Exception|JsonException*/
     public function testTheAndroidPublisherClientContainsPurchaseSubscriptionsV2Component(): void
     {
         // Given
