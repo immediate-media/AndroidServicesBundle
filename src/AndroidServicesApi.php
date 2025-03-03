@@ -33,40 +33,6 @@ class AndroidServicesApi
     ) {
     }
 
-    /**
-     * @throws AndroidServiceException|JsonException
-     * @deprecated
-     */
-    public function getPurchaseSubscription(
-        AndroidPublisherModelInterface $androidPublisherModel
-    ): ?SubscriptionPurchase {
-        if (!$androidPublisherModel->getPurchaseToken() || !$androidPublisherModel->getSubscriptionId()) {
-            return null;
-        }
-
-        try {
-            $service = $this->androidPublisherService->build();
-            $result = $service->purchases_subscriptions->get(
-                $androidPublisherModel->getPackageName(),
-                $androidPublisherModel->getSubscriptionId(),
-                $androidPublisherModel->getPurchaseToken()
-            );
-
-            $this->eventDispatcher->dispatch(
-                new AndroidServiceEvent(AndroidServiceEvent::SUCCESS_MESSAGE),
-                AndroidServiceEvent::SUCCESS
-            );
-
-            return $result;
-        } catch (Exception $exception) {
-            throw new AndroidServiceException(
-                self::FAIL_MESSAGE,
-                $exception->getCode(),
-                $exception
-            );
-        }
-    }
-
     /** @throws AndroidServiceException|JsonException */
     public function getPurchaseSubscriptionV2(
         AndroidPublisherModelInterface $androidPublisherModel

@@ -29,7 +29,6 @@ class AndroidServiceApiTest extends TestCase
     private AndroidPublisherService $serviceFactory;
     private EventDispatcherInterface $eventDispatcher;
     private AndroidPublisher $service;
-    private PurchasesSubscriptions $purchaseSubs;
     private PurchasesSubscriptionsv2 $purchaseSubsV2;
     private MonetizationSubscriptions $monetizationSubs;
 
@@ -39,11 +38,9 @@ class AndroidServiceApiTest extends TestCase
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
         $this->service = Mockery::mock(AndroidPublisher::class);
-        $this->purchaseSubs = Mockery::mock(PurchasesSubscriptions::class);
         $this->purchaseSubsV2 = Mockery::mock(PurchasesSubscriptionsv2::class);
         $this->monetizationSubs = Mockery::mock(MonetizationSubscriptions::class);
 
-        $this->service->purchases_subscriptions = $this->purchaseSubs;
         $this->service->purchases_subscriptionsv2 = $this->purchaseSubsV2;
         $this->service->monetization_subscriptions = $this->monetizationSubs;
 
@@ -58,44 +55,14 @@ class AndroidServiceApiTest extends TestCase
         $androidPublisherModel->setPurchaseToken('mock.token')
             ->setSubscriptionId('mock.sub.id');
 
-        $this->serviceFactory->expects('build')->twice()->andReturn($this->service);
+        $this->serviceFactory->expects('build')->andReturn($this->service);
 
         // When
-        $this->purchaseSubs->expects('get')->once();
-        $this->purchaseSubsV2->expects('get')->once();
+        $this->purchaseSubsV2->expects('get');
 
         // Then
-        $this->eventDispatcher->expects('dispatch')->twice();
-        $this->assertNull($this->unit->getPurchaseSubscription($androidPublisherModel));
+        $this->eventDispatcher->expects('dispatch');
         $this->assertNull($this->unit->getPurchaseSubscriptionV2($androidPublisherModel));
-    }
-
-    /** @throws AndroidServiceException|JsonException */
-    public function testItCannotGetPurchaseSubscriptionDataForInvalidApiClients(): void
-    {
-        // Given
-        $androidPublisherModel = new AndroidPublisherModel('mock.app.name');
-        $androidPublisherModel
-            ->setPurchaseToken('mock.token')
-            ->setSubscriptionId('mock.sub.id');
-
-        $this->serviceFactory->expects('build')
-            ->once()
-            ->andReturn($this->service);
-
-        // When
-        $this->purchaseSubs->expects('get')
-            ->once()
-            ->with(
-                $androidPublisherModel->getPackageName(),
-                $androidPublisherModel->getSubscriptionId(),
-                $androidPublisherModel->getPurchaseToken()
-            )
-            ->andThrows(Exception::class);
-
-        // Then
-        $this->expectException(AndroidServiceException::class);
-        $this->assertNull($this->unit->getPurchaseSubscription($androidPublisherModel));
     }
 
     /** @throws JsonException */
