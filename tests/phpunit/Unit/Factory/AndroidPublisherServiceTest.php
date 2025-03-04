@@ -8,7 +8,6 @@ use Google\Client;
 use Google\Exception;
 use Google\Service\AndroidPublisher;
 use Google\Service\AndroidPublisher\Resource\MonetizationSubscriptions;
-use Google\Service\AndroidPublisher\Resource\PurchasesSubscriptions;
 use Google\Service\AndroidPublisher\Resource\PurchasesSubscriptionsv2;
 use IM\Fabric\Bundle\AndroidServicesBundle\Factory\AndroidPublisherService;
 use IM\Fabric\Bundle\AndroidServicesBundle\Factory\Authenticator;

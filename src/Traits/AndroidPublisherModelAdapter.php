@@ -9,7 +9,7 @@ use IM\Fabric\Bundle\AndroidServicesBundle\Model\AndroidPublisherModel;
 
 trait AndroidPublisherModelAdapter
 {
-    public function androidPublisherModelAdapter(AndroidPublisherDataInterface $notificationData): AndroidPublisherModel
+    public function getAndroidPublisherModel(AndroidPublisherDataInterface $notificationData): AndroidPublisherModel
     {
         return new AndroidPublisherModel($notificationData->getPackageName());
     }

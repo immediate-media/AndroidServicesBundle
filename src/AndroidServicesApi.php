@@ -11,15 +11,12 @@ use IM\Fabric\Bundle\AndroidServicesBundle\Factory\AndroidPublisherService;
 use IM\Fabric\Bundle\AndroidServicesBundle\Interface\AndroidPublisherModelInterface;
 use Google\Service\AndroidPublisher\ListSubscriptionOffersResponse;
 use Google\Service\AndroidPublisher\ListSubscriptionsResponse;
-use Google\Service\AndroidPublisher\SubscriptionPurchase;
 use Google\Service\AndroidPublisher\SubscriptionPurchaseV2;
 use IM\Fabric\Bundle\AndroidServicesBundle\Traits\HasAndroidServiceException;
 use JsonException;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @SuppressWarnings("LongVariable")
- */
+/** @SuppressWarnings("LongVariable") */
 class AndroidServicesApi
 {
     use HasAndroidServiceException;

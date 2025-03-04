@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IM\Fabric\Bundle\AndroidServicesBundle\Traits;
 
 use IM\Fabric\Bundle\AndroidServicesBundle\Exception\AndroidServiceException;
@@ -8,9 +10,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 
 trait HasAndroidServiceException
 {
-    /**
-     * @throws AndroidServiceException
-     */
+    /** @throws AndroidServiceException */
     private function throwAndroidServiceException(string $message): void
     {
         $violations = new ConstraintViolationList();
