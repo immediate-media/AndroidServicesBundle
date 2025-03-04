@@ -1,10 +1,16 @@
 {
     "name": "immediate/android-services-bundle",
     "description": "This bundle allows for interaction with the Android Publisher services specifically",
-    "type": "library",
+    "type": "symfony-bundle",
     "license": "MIT",
     "minimum-stability": "stable",
     "prefer-stable": true,
+    "repositories": {
+        "immediate/im-datadog": {
+            "type": "vcs",
+            "url": "https://github.com/immediatemediaco/im-datadog.git"
+        }
+    },
     "extra": {
         "symfony": {
             "allow-contrib": false,
@@ -17,6 +23,7 @@
     "require": {
         "php": "^8.3",
         "google/apiclient": "^2.10",
+        "immediate/im-datadog": "^1.0",
         "symfony/validator": "6.4.*"
     },
     "require-dev": {
