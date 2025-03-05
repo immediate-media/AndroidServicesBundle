@@ -9,7 +9,7 @@ use IM\Fabric\Package\Datadog\Statsd;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-readonly class Datadog
+class Datadog
 {
     public function __construct(
         private string $appName,

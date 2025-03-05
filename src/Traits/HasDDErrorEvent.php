@@ -13,9 +13,9 @@ use Throwable;
 trait HasDDErrorEvent
 {
     private function sendDDErrorEvent(
-        Throwable $exception,
         Datadog $dataDog,
-        ?AndroidPublisherModelInterface $androidPublisherModel
+        ?AndroidPublisherModelInterface $androidPublisherModel,
+        Throwable $exception,
     ): void {
         try {
             $dataDog->sendEvent(

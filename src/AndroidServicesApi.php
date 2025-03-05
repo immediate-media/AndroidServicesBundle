@@ -13,6 +13,7 @@ use Google\Service\AndroidPublisher\ListSubscriptionOffersResponse;
 use Google\Service\AndroidPublisher\ListSubscriptionsResponse;
 use Google\Service\AndroidPublisher\SubscriptionPurchaseV2;
 use IM\Fabric\Bundle\AndroidServicesBundle\Traits\HasAndroidServiceException;
+use IM\Fabric\Bundle\AndroidServicesBundle\Traits\HasDDErrorEvent;
 use JsonException;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -20,13 +21,15 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class AndroidServicesApi
 {
     use HasAndroidServiceException;
+    use hasDDErrorEvent;
 
     private const string FAIL = 'android.service.failure';
     private const string FAIL_MESSAGE = 'Failed to retrieve purchase subscription';
 
     public function __construct(
         private readonly AndroidPublisherService $androidPublisherService,
-        private readonly EventDispatcherInterface $eventDispatcher
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly Datadog $datadog,
     ) {
     }
 
@@ -51,11 +54,8 @@ class AndroidServicesApi
 
             return $result;
         } catch (Exception $exception) {
-            throw new AndroidServiceException(
-                self::FAIL_MESSAGE,
-                $exception->getCode(),
-                $exception
-            );
+            $this->sendDDErrorEvent($this->datadog,$androidPublisherModel,$exception);
+            $this->throwAndroidServiceException(self::FAIL_MESSAGE);
         }
     }
 
@@ -84,11 +84,8 @@ class AndroidServicesApi
 
             return $result;
         } catch (Exception $exception) {
-            throw new AndroidServiceException(
-                self::FAIL_MESSAGE,
-                $exception->getCode(),
-                $exception
-            );
+            $this->sendDDErrorEvent($this->datadog,$androidPublisherModel,$exception);
+            $this->throwAndroidServiceException(self::FAIL_MESSAGE);
         }
     }
 
@@ -111,11 +108,8 @@ class AndroidServicesApi
 
             return $result;
         } catch (Exception $exception) {
-            throw new AndroidServiceException(
-                self::FAIL_MESSAGE,
-                $exception->getCode(),
-                $exception
-            );
+            $this->sendDDErrorEvent($this->datadog,$androidPublisherModel,$exception);
+            $this->throwAndroidServiceException(self::FAIL_MESSAGE);
         }
     }
 }
