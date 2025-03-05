@@ -24,8 +24,6 @@ class AndroidServicesApi
     use HasAndroidServiceException;
     use hasDDErrorEvent;
 
-    private const string FAIL = 'android.service.failure';
-
     public function __construct(
         private readonly AndroidPublisherService $androidPublisherService,
         private readonly EventDispatcherInterface $eventDispatcher,
