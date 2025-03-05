@@ -25,7 +25,6 @@ class AndroidServicesApi
     use hasDDErrorEvent;
 
     private const string FAIL = 'android.service.failure';
-    private const string FAIL_MESSAGE = 'Failed to retrieve purchase subscription';
 
     public function __construct(
         private readonly AndroidPublisherService $androidPublisherService,
@@ -57,7 +56,7 @@ class AndroidServicesApi
             return $result;
         } catch (Exception $exception) {
             $this->sendDDErrorEvent($this->datadog, $this->logger, $androidPublisherModel, $exception);
-            $this->throwAndroidServiceException(self::FAIL_MESSAGE, $exception->getCode());
+            $this->throwAndroidServiceException($exception->getMessage(), $exception->getCode());
         }
     }
 
@@ -87,7 +86,7 @@ class AndroidServicesApi
             return $result;
         } catch (Exception $exception) {
             $this->sendDDErrorEvent($this->datadog, $this->logger, $androidPublisherModel, $exception);
-            $this->throwAndroidServiceException(self::FAIL_MESSAGE, $exception->getCode());
+            $this->throwAndroidServiceException($exception->getMessage(), $exception->getCode());
         }
     }
 
@@ -111,7 +110,7 @@ class AndroidServicesApi
             return $result;
         } catch (Exception $exception) {
             $this->sendDDErrorEvent($this->datadog, $this->logger, $androidPublisherModel, $exception);
-            $this->throwAndroidServiceException(self::FAIL_MESSAGE, $exception->getCode());
+            $this->throwAndroidServiceException($exception->getMessage(), $exception->getCode());
         }
     }
 }
