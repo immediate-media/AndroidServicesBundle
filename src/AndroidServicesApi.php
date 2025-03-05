@@ -15,6 +15,7 @@ use Google\Service\AndroidPublisher\SubscriptionPurchaseV2;
 use IM\Fabric\Bundle\AndroidServicesBundle\Traits\HasAndroidServiceException;
 use IM\Fabric\Bundle\AndroidServicesBundle\Traits\HasDDErrorEvent;
 use JsonException;
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /** @SuppressWarnings("LongVariable") */
@@ -30,6 +31,7 @@ class AndroidServicesApi
         private readonly AndroidPublisherService $androidPublisherService,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly Datadog $datadog,
+        private readonly LoggerInterface $logger
     ) {
     }
 
@@ -54,8 +56,8 @@ class AndroidServicesApi
 
             return $result;
         } catch (Exception $exception) {
-            $this->sendDDErrorEvent($this->datadog,$androidPublisherModel,$exception);
-            $this->throwAndroidServiceException(self::FAIL_MESSAGE);
+            $this->sendDDErrorEvent($this->datadog, $this->logger, $androidPublisherModel, $exception);
+            $this->throwAndroidServiceException(self::FAIL_MESSAGE, $exception->getCode());
         }
     }
 
@@ -84,8 +86,8 @@ class AndroidServicesApi
 
             return $result;
         } catch (Exception $exception) {
-            $this->sendDDErrorEvent($this->datadog,$androidPublisherModel,$exception);
-            $this->throwAndroidServiceException(self::FAIL_MESSAGE);
+            $this->sendDDErrorEvent($this->datadog, $this->logger, $androidPublisherModel, $exception);
+            $this->throwAndroidServiceException(self::FAIL_MESSAGE, $exception->getCode());
         }
     }
 
@@ -108,8 +110,8 @@ class AndroidServicesApi
 
             return $result;
         } catch (Exception $exception) {
-            $this->sendDDErrorEvent($this->datadog,$androidPublisherModel,$exception);
-            $this->throwAndroidServiceException(self::FAIL_MESSAGE);
+            $this->sendDDErrorEvent($this->datadog, $this->logger, $androidPublisherModel, $exception);
+            $this->throwAndroidServiceException(self::FAIL_MESSAGE, $exception->getCode());
         }
     }
 }

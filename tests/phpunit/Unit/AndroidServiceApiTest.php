@@ -18,6 +18,7 @@ use JsonException;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /** @SuppressWarnings("LongVariable") */
@@ -28,6 +29,7 @@ class AndroidServiceApiTest extends TestCase
     private AndroidServicesApi $unit;
     private AndroidPublisherService $serviceFactory;
     private Datadog $datadog;
+    private LoggerInterface $loggerInterface;
     private EventDispatcherInterface $eventDispatcher;
     private AndroidPublisher $service;
     private PurchasesSubscriptionsv2 $purchaseSubsV2;
@@ -38,6 +40,7 @@ class AndroidServiceApiTest extends TestCase
         $this->serviceFactory = Mockery::mock(AndroidPublisherService::class);
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->datadog = Mockery::mock(Datadog::class);
+        $this->loggerInterface = Mockery::mock('Psr\Log\LoggerInterface');
 
         $this->service = Mockery::mock(AndroidPublisher::class);
         $this->purchaseSubsV2 = Mockery::mock(PurchasesSubscriptionsv2::class);
@@ -46,7 +49,12 @@ class AndroidServiceApiTest extends TestCase
         $this->service->purchases_subscriptionsv2 = $this->purchaseSubsV2;
         $this->service->monetization_subscriptions = $this->monetizationSubs;
 
-        $this->unit = new AndroidServicesApi($this->serviceFactory, $this->eventDispatcher, $this->datadog);
+        $this->unit = new AndroidServicesApi(
+            $this->serviceFactory,
+            $this->eventDispatcher,
+            $this->datadog,
+            $this->loggerInterface,
+        );
     }
 
     /** @throws AndroidServiceException | JsonException */

@@ -7,6 +7,7 @@ namespace IM\Fabric\Bundle\AndroidServicesBundle\Traits;
 use IM\Fabric\Bundle\AndroidServicesBundle\Datadog;
 use IM\Fabric\Bundle\AndroidServicesBundle\Interface\AndroidPublisherModelInterface;
 use IM\Fabric\Package\Datadog\Event;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 /** @SuppressWarnings("LongVariable") */
@@ -14,6 +15,7 @@ trait HasDDErrorEvent
 {
     private function sendDDErrorEvent(
         Datadog $dataDog,
+        LoggerInterface $logger,
         ?AndroidPublisherModelInterface $androidPublisherModel,
         Throwable $exception,
     ): void {
@@ -28,7 +30,11 @@ trait HasDDErrorEvent
                 ], JSON_THROW_ON_ERROR),
                 Event::ALERT_ERROR,
             );
-        } catch (Throwable) {
+        } catch (Throwable $throwable) {
+            $logger->warning('Failed to send event to Datadog', [
+                'statusCode' => $throwable->getCode(),
+                'error' => $throwable->getMessage()
+            ]);
             return;
         }
     }
