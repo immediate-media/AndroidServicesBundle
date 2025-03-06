@@ -1,0 +1,22 @@
+parameters:
+  app.deployed_env: '%env(string:DEPLOYED_ENV)%'
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    public: true        # Allows your services to be retrieved from the container.
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  IM\Fabric\Bundle\AndroidServicesBundle\AndroidServicesApi: ~
+  IM\Fabric\Bundle\AndroidServicesBundle\Factory\AndroidPublisherService: ~
+
+  # Setup Datadog Event logging
+  DataDog\DogStatsd:
+    arguments:
+      $config:
+        global_tags:
+          environment: '%app.deployed_env%'
+    public: true
+
+  IM\Fabric\Package\Datadog\Statsd: ~

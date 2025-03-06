@@ -35,9 +35,6 @@
 /web/bundles/
 /web/uploads/
 
-# PHPUnit
-/app/phpunit.xml
-/phpunit.xml
 
 # Build data
 /build/
@@ -50,3 +47,9 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+.idea
+.phplint.cache
+.phpunit.cache
+.phpcs-cache
+composer.lock

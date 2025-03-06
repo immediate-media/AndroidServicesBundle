@@ -1,0 +1,64 @@
+{
+    "name": "immediate/android-services-bundle",
+    "description": "This bundle allows for interaction with the Android Publisher services specifically",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "repositories": {
+        "immediate/im-datadog": {
+            "type": "vcs",
+            "url": "https://github.com/immediatemediaco/im-datadog.git"
+        }
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "6.4.*"
+        },
+        "google/apiclient-services": [
+            "AndroidPublisher"
+        ]
+    },
+    "require": {
+        "php": "^8.3",
+        "google/apiclient": "^2.10",
+        "immediate/im-datadog": "^1.0",
+        "symfony/validator": "6.4.*"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.6",
+        "overtrue/phplint": "^9.5",
+        "phpmd/phpmd": "^2.15",
+        "phpunit/phpunit": "^12.0",
+        "roave/security-advisories": "dev-latest",
+        "squizlabs/php_codesniffer": "^3.11",
+        "symfony/phpunit-bridge": "^6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "IM\\Fabric\\Bundle\\AndroidServicesBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IM\\Fabric\\Bundle\\AndroidServicesBundle\\Test\\": "tests/phpunit/"
+        }
+    },
+    "scripts": {
+        "check-coverage": "vendor/bin/phpunit --coverage-html build && open build/index.html",
+        "run-tests": "composer run-phpunit && composer run-phpcs && composer run-phpmd && composer run-phplint",
+        "run-phpcs": "vendor/bin/phpcs",
+        "run-phpcbf": "vendor/bin/phpcbf",
+        "run-phpmd": "vendor/bin/phpmd src text phpmd-src.xml && vendor/bin/phpmd tests text phpmd-test.xml",
+        "run-phplint": "vendor/bin/phplint",
+        "run-phpunit": "vendor/bin/phpunit --testdox"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    }
+}
