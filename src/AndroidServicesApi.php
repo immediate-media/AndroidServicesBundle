@@ -18,7 +18,10 @@ use JsonException;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-/** @SuppressWarnings("LongVariable") */
+/**
+ * @SuppressWarnings("LongVariable")
+ * @link https://developers.google.com/android-publisher/api-ref/rest Google Play API
+ * */
 class AndroidServicesApi
 {
     use HasAndroidServiceException;
@@ -32,7 +35,10 @@ class AndroidServicesApi
     ) {
     }
 
-    /** @throws AndroidServiceException|JsonException */
+    /**
+     * @throws AndroidServiceException|JsonException
+     * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2 Purchases.subscriptionsV2
+     * */
     public function getPurchaseSubscriptionV2(
         AndroidPublisherModelInterface $androidPublisherModel
     ): ?SubscriptionPurchaseV2 {
@@ -58,7 +64,10 @@ class AndroidServicesApi
         }
     }
 
-    /** @throws AndroidServiceException|JsonException */
+    /**
+     * @throws AndroidServiceException|JsonException
+     * @link https://developers.google.com/android-publisher/api-ref/rest/v3/monetization.subscriptions.basePlans.offers Monetization.subscriptions.basePlans.offers
+     * */
     public function getBasePlanOffers(
         AndroidPublisherModelInterface $androidPublisherModel
     ): ?ListSubscriptionOffersResponse {
@@ -88,7 +97,10 @@ class AndroidServicesApi
         }
     }
 
-    /** @throws AndroidServiceException|JsonException */
+    /**
+     * @throws AndroidServiceException|JsonException
+     * @link https://developers.google.com/android-publisher/api-ref/rest/v3/monetization.subscriptions Monetization.subscriptions
+     */
     public function getPackageSubscriptions(
         AndroidPublisherModelInterface $androidPublisherModel
     ): ?ListSubscriptionsResponse {
