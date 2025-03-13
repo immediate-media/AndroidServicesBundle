@@ -19,12 +19,7 @@ The bundle currently only provide 3x services to interact with the Android Publi
 ---
 ## Installation
 
-To install the bundle, use Composer:
-
-```sh
-composer require immediate/android-services-bundle
-```
-Or add the package to your `composer.json` file:
+To install the bundle, first add the package to your `composer.json` file:
 
 ```json
   "repositories": {
@@ -34,17 +29,21 @@ Or add the package to your `composer.json` file:
     }
   }
 ```
-it will also need to be added as a dependency 
+don't forget to also added it as a dependency 
 ```json
     "require": {
         "immediate/android-services-bundle": "^1.0"
     }
 ```
+Then run composer require:
+```sh
+composer require immediate/android-services-bundle
+``` 
 ---
 ## Configuration
 
-The below should automatically be added to your config/bundles.php file as part of a composer update.
-If not you will need to add the following to your config/bundles.php file:
+The below should automatically be added to your `config/bundles.php` file by the Symfony recipes after a the composer updated.
+If not you will need to add the following to your `config/bundles.php` file:
 ```php
 return [
     // Other bundles...
