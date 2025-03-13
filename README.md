@@ -45,7 +45,7 @@ return [
 ];
 ```
 
-For local testing you will need to make sure that you `.env.local` & `.env.test` files have the following environment variables set:
+You must have the following environment variables set:
 ```dotenv
 ###> Google API Variables <###
 GOOGLE_API_SERVICE_ACCOUNT_CREDENTIALS=
