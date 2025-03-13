@@ -29,15 +29,9 @@ To install the bundle, first add the package to your `composer.json` file:
     }
   }
 ```
-don't forget to also added it as a dependency 
-```json
-    "require": {
-        "immediate/android-services-bundle": "^1.0"
-    }
-```
 Then run composer require:
 ```sh
-composer require immediate/android-services-bundle
+composer require immediate/android-services-bundle:1.0.0
 ``` 
 ---
 ## Configuration
