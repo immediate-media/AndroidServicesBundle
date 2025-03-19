@@ -1,0 +1,10 @@
+name: PHP Package Tests
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  call-workflow:
+    uses: immediate-media/github-actions/.github/workflows/php-package-testing.yml@main
+    secrets: inherit
