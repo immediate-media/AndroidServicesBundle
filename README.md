@@ -53,6 +53,7 @@ GOOGLE_API_SERVICE_ACCOUNT_CREDENTIALS=
 
 The value of `GOOGLE_API_SERVICE_ACCOUNT_CREDENTIALS` should be the JSON string of the service account credentials that you can download from the Google Cloud Console.
 or ask one of the developers owner from `@im-polaris` to provide you with the credentials.
+
 ---
 # Usage
 
@@ -101,6 +102,7 @@ which you can listen to and handle accordingly.
 ### Note:
 The bundle make use of the `immediate/im-datadog` library to log the error messages and error codes to Datadog for each request failure,
 removing the need for your application to handle the logging of the error messages to it.
+
 ---
 ## Testing & Scripts 
 The bundle comes with some basic script that you can find within the [composer.json](composer.json) file.:
