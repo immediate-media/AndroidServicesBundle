@@ -37,6 +37,7 @@ class AndroidServicesApi
 
     /**
      * @throws AndroidServiceException|JsonException
+     * @phpcs:ignore
      * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2 Purchases.subscriptionsV2
      * */
     public function getPurchaseSubscriptionV2(
@@ -66,6 +67,7 @@ class AndroidServicesApi
 
     /**
      * @throws AndroidServiceException|JsonException
+     * @phpcs:ignore
      * @link https://developers.google.com/android-publisher/api-ref/rest/v3/monetization.subscriptions.basePlans.offers Monetization.subscriptions.basePlans.offers
      * */
     public function getBasePlanOffers(
@@ -99,7 +101,8 @@ class AndroidServicesApi
 
     /**
      * @throws AndroidServiceException|JsonException
-     * @link https://developers.google.com/android-publisher/api-ref/rest/v3/monetization.subscriptions Monetization.subscriptions
+     * @phpcs:ignore
+     * @link https://developers.google.com/android-publisher/api-ref/rest/v3/monetization.subscriptions Monetization.subscriptions // @phpcs:ignore
      */
     public function getPackageSubscriptions(
         AndroidPublisherModelInterface $androidPublisherModel
