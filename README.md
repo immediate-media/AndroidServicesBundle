@@ -115,7 +115,7 @@ composer run-tests
 ---
 > [!IMPORTANT]
 >
-> The Google API will append `..[random number]` at the end of the `orderId` when a subscriber `RENEW` a subscription.
-> 
-> If you are looking at doing any sort of validation using the `orderId`, the bundle offer a `trait` [HasStripOrderId](src/Traits/HasStripOrderId.php) available to help.
+>The Google API will append `..[random number]` at the end of the orderId when a subscriber renews a subscription.
+>  
+> If you plan doing any sort of validation using the `orderId`, the bundle offers a helper `Trait` [HasStripOrderId](src/Traits/HasStripOrderId.php) which removes the appending data from the Order ID.
 
