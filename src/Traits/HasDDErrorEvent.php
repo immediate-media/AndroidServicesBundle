@@ -29,6 +29,12 @@ trait HasDDErrorEvent
                     'purchaseToken' => $androidPublisherModel->subscriptionNotification->purchaseToken ?? ''
                 ], JSON_THROW_ON_ERROR),
                 Event::ALERT_ERROR,
+                [
+                    'packageName' => $androidPublisherModel->packageName ?? '',
+                    'subscriptionId' => $androidPublisherModel->subscriptionNotification->subscriptionId ?? '',
+                    'productId' => $androidPublisherModel->getProductId() ?? '',
+                    'appName' => 'android-services-bundle',
+                ]
             );
         } catch (Throwable $throwable) {
             $logger->warning('Failed to send event to Datadog', [

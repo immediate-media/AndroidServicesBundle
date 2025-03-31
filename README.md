@@ -111,3 +111,11 @@ If you only want a run the tests you can run the following command:
 ```sh
 composer run-tests
 ```
+
+---
+> [!IMPORTANT]
+>
+>The Google API will append `..[random number]` at the end of the orderId when a subscriber renews a subscription.
+>  
+> If you plan doing any sort of validation using the `orderId`, the bundle offers a helper `Trait` [HasStripOrderId](src/Traits/HasStripOrderId.php) which removes the appending data from the Order ID.
+
