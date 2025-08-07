@@ -21,7 +21,10 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-/** @SuppressWarnings("LongVariable") */
+/**
+ * @SuppressWarnings("LongVariable")
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * */
 class AndroidServiceApiTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
