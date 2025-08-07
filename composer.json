@@ -1,6 +1,5 @@
 {
     "name": "immediate/android-services-bundle",
-    "version": "1.0.0",
     "description": "This bundle allows for interaction with the Android Publisher services specifically",
     "type": "symfony-bundle",
     "license": "MIT",
