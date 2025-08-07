@@ -6,6 +6,7 @@ namespace IM\Fabric\Bundle\AndroidServicesBundle\Factory;
 
 use Google\Client;
 use Google\Exception;
+use IM\Fabric\Bundle\AndroidServicesBundle\Traits\HasAndroidServiceException;
 use JsonException;
 
 /**
@@ -14,6 +15,8 @@ use JsonException;
  */
 class Authenticator
 {
+    use HasAndroidServiceException;
+
     public function __construct(
         private string $googleCredentials,
         private Client $client
@@ -32,6 +35,10 @@ class Authenticator
     /** @throws JsonException */
     private function getAuthConfig(): array
     {
-        return json_decode($this->googleCredentials, true, 512, JSON_THROW_ON_ERROR);
+        try {
+            return json_decode($this->googleCredentials, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $exception) {
+            $this->throwAndroidServiceException($exception->getMessage(), $exception->getCode());
+        }
     }
 }

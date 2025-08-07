@@ -13,7 +13,10 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class AndroidServicesExtension extends Extension
 {
-    /**@throws Exception */
+    /**
+     * @suppressWarnings(PHPMD.UnusedFormalParameter)
+     * @throws Exception
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader(

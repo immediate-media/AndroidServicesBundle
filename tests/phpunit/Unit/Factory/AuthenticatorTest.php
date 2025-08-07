@@ -6,6 +6,7 @@ namespace IM\Fabric\Bundle\AndroidServicesBundle\Test\Unit\Factory;
 
 use Google\Client;
 use Google\Exception;
+use IM\Fabric\Bundle\AndroidServicesBundle\Exception\AndroidServiceException;
 use IM\Fabric\Bundle\AndroidServicesBundle\Factory\Authenticator;
 use JsonException;
 use Mockery;
@@ -30,11 +31,13 @@ class AuthenticatorTest extends TestCase
         "client_x509_cert_url": "mock_url"
     }';
 
-    /**@throws Exception*/
+    /**@throws Exception
+     * @throws JsonException
+     */
     public function testItThrowsAnExceptionIfTheCertIsNotValidJson(): void
     {
         $client = Mockery::mock(Client::class);
-        $this->expectException(JsonException::class);
+        $this->expectException(AndroidServiceException::class);
         $unit = new Authenticator('bad json key', $client);
         $unit->getAuthenticatedClient(self::MOCK_SCOPE);
     }

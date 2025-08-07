@@ -37,8 +37,10 @@ class AndroidServicesApi
 
     /**
      * @throws AndroidServiceException|JsonException
+     * @phpcs:disable Generic.Files.LineLength.TooLong
      * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2 Purchases.subscriptionsV2
-     * */
+     * @phpcs:enable
+     */
     public function getPurchaseSubscriptionV2(
         AndroidPublisherModelInterface $androidPublisherModel
     ): ?SubscriptionPurchaseV2 {
@@ -66,8 +68,10 @@ class AndroidServicesApi
 
     /**
      * @throws AndroidServiceException|JsonException
+     * @phpcs:disable Generic.Files.LineLength.TooLong
      * @link https://developers.google.com/android-publisher/api-ref/rest/v3/monetization.subscriptions.basePlans.offers Monetization.subscriptions.basePlans.offers
-     * */
+     * @phpcs:enable
+     */
     public function getBasePlanOffers(
         AndroidPublisherModelInterface $androidPublisherModel
     ): ?ListSubscriptionOffersResponse {
@@ -99,7 +103,9 @@ class AndroidServicesApi
 
     /**
      * @throws AndroidServiceException|JsonException
+     * @phpcs:disable Generic.Files.LineLength.TooLong
      * @link https://developers.google.com/android-publisher/api-ref/rest/v3/monetization.subscriptions Monetization.subscriptions
+     * @phpcs:enable
      */
     public function getPackageSubscriptions(
         AndroidPublisherModelInterface $androidPublisherModel
