@@ -1,6 +1,6 @@
 parameters:
   app.deployed_env: '%env(string:DEPLOYED_ENV)%'
-
+  app.google_creds: 'env(GOOGLE_API_SERVICE_ACCOUNT_CREDENTIALS)%'
 services:
   # default configuration for services in *this* file
   _defaults:
@@ -20,3 +20,8 @@ services:
     public: true
 
   IM\Fabric\Package\Datadog\Statsd: ~
+  Google\Client: ~
+
+  IM\Fabric\Bundle\AndroidServicesBundle\Factory\Authenticator:
+    arguments:
+      $googleCredentials: '%app.google_creds%'
