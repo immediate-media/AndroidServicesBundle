@@ -11,4 +11,4 @@ jobs:
     uses: immediate-media/github-actions/.github/workflows/php-package-testing.yml@main
     with:
       php-version: '8.3'
-    secrets: inherit
+#    secrets: inherit
