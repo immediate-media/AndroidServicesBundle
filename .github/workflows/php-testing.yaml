@@ -1,10 +1,12 @@
-name: PHP Package Tests
+name: build
+
 on:
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  call-workflow:
-    uses: immediate-media/github-actions/.github/workflows/php-package-testing.yml@main
+  build:
+    uses: immediatemediaco/github-actions/.github/workflows/php-package-testing.yml@main
+    with:
+      php-version: '8.3'
     secrets: inherit
