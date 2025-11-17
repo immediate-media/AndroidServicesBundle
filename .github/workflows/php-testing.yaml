@@ -1,11 +1,10 @@
-name: build
-
+name: PHP Package Tests
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  workflow_call:
-    uses: immediate-media/github-actions-public/.github/workflows/php-package-testing.yml@main
+  call-workflow:
+    uses: immediate-media/github-actions/.github/workflows/php-package-testing.yml@main
+    secrets: inherit
